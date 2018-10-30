@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     ListView list;
 
-    String[] atys = new String[]{"SectorProgressView", "ColorfulRingProgressView"};
+    String[] atys = new String[]{"SectorProgressView"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

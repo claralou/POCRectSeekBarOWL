@@ -22,6 +22,12 @@ public class SectorProgressView extends View {
 
     private ObjectAnimator animator;
 
+    private float mXpad;
+    private float mYpad;
+
+    private float mWwd;
+    private float mHhd;
+
     public SectorProgressView(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
@@ -53,21 +59,25 @@ public class SectorProgressView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
 
-        float xpad = (float)(getPaddingLeft()+getPaddingRight());
-        float ypad = (float)(getPaddingBottom()+ getPaddingTop());
+        mXpad = (float)(getPaddingLeft()+getPaddingRight());
+        mYpad = (float)(getPaddingBottom()+ getPaddingTop());
 
-        float wwd = (float)w - xpad;
-        float hhd = (float)h - ypad;
+        mWwd = (float)w - mXpad;
+        mHhd = (float)h - mYpad;
 
-        oval = new RectF(getPaddingLeft(), getPaddingTop(), getPaddingLeft()+wwd, getPaddingTop()+hhd);
+        oval = new RectF(getPaddingLeft(), getPaddingTop(), getPaddingLeft()+mWwd, getPaddingTop()+mHhd);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawArc(oval, 0, 360, true, bgPaint);
-        canvas.drawArc(oval, startAngle, percent*3.6f, true, fgPaint);
+        //canvas.drawArc(oval, 0, 360, true, bgPaint);
+        //canvas.drawArc(oval, startAngle, percent*3.6f, true, fgPaint);
+        RectF ovalNew = new RectF(getPaddingLeft(), getPaddingTop(), getPaddingLeft()+(mWwd * percent/100), getPaddingTop()+mHhd);
+
+        canvas.drawRect(oval, bgPaint);
+        canvas.drawRect(ovalNew, fgPaint);
     }
 
     public int getBgColor() {
